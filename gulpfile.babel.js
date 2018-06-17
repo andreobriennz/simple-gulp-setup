@@ -20,8 +20,10 @@ const settings = {
     styles: [ 
         // array of sass files to compile, 
         // you *might* need to list files in order rather than using * for alphabetical order
-        'assets/styles/**/*.scss',
-        'assets/styles/*.scss',
+        'assets/styles/file1.scss',
+        'assets/styles/file2.scss',
+        // 'assets/styles/**/*.scss',
+        // 'assets/styles/*.scss',
     ],
     vendor: { // optional array for vendor files (needs improvement)
         scripts: [
