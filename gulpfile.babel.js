@@ -1,0 +1,100 @@
+const gulp = require('gulp');
+
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const babel = require('gulp-babel');
+
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const minify = require('gulp-clean-css');
+
+const settings = {
+    dist: 'assets/dist', // destination of compiled files
+    scripts: [ 
+        // array of js files
+        'assets/javascript/file1.js',
+        'assets/javascript/file2.js',
+        // or just: assets/javascript/*.js' for all in that folder
+    ],
+    styles: [ 
+        // array of sass files to compile, 
+        // you *might* need to list files in order rather than using * for alphabetical order
+        'assets/styles/**/*.scss',
+        'assets/styles/*.scss',
+    ],
+    vendor: { // optional array for vendor files (needs improvement)
+        scripts: [
+            './node_modules/jquery/dist/jquery.js',
+            './node_modules/bootstrap/dist/js/bootstrap.js',
+        ],
+        styles: [
+            './node_modules/bootstrap/dist/css/bootstrap.css',
+        ],
+    },
+}
+
+// JAVASCRIPT: concat together, compile es2015, minify
+gulp.task('scripts', function() {
+    return gulp.src( settings.scripts ) // array of files
+        .pipe(concat( 'app.js' )) // concatinate files as app.js
+        .pipe(babel()) // compile to ES5 (older JS version)
+        .pipe(gulp.dest( settings.dist )) // create app.js in dist folder
+        .pipe(rename( 'app.min.js' )) // name of minified version 
+        .pipe(uglify()) // actually minify it
+        .pipe(gulp.dest( settings.dist )); // create app.min.js
+});
+
+
+// CSS/SASS: compile scss to css, autoprefix, minify
+gulp.task('sass', function () {
+    return gulp.src( settings.styles ) // array of sass files
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({ // auto-prefix for better browser support 
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename('style.css')) // name of compiled file
+        .pipe(gulp.dest( settings.dist )) // create compiled file
+        .pipe(rename('style.min.css')) // name of minified file
+        .pipe(minify({compatibility: 'ie8'})) // minify file
+        .pipe(gulp.dest( settings.dist )); // create the minified file
+});
+
+
+// VENDOR (same as scripts and sass tasks, but with different files and destination)
+// javascript
+gulp.task('vendor-scripts', function() {
+    return gulp.src( settings.vendor.scripts )
+        .pipe(concat('vendor.js'))
+        .pipe(babel())
+        .pipe(gulp.dest( settings.dist ))
+        .pipe(rename('vendor.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest( settings.dist ));
+});
+
+// css/sass
+gulp.task('vendor-sass', function () {
+    return gulp.src( settings.vendor.styles )
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename( 'vendor.css' ))
+        .pipe(gulp.dest( settings.dist ))
+        .pipe(rename( 'vendor.min.css' ))
+        .pipe(minify({compatibility: 'ie8'}))
+        .pipe(gulp.dest( settings.dist ));
+});
+
+
+// WATCH FOR CHANGES
+gulp.task('watch', function() {
+    gulp.watch( settings.scripts, ['scripts']);
+    gulp.watch( settings.styles, ['sass']);
+});
+
+gulp.task('default', ['sass', 'scripts', 'watch']);
+gulp.task('vendor', ['vendor-sass', 'vendor-scripts']);
