@@ -52,6 +52,9 @@ gulp.task('scripts', function() {
 gulp.task('sass', function () {
     return gulp.src( settings.styles ) // array of sass files
         .pipe(sass().on('error', sass.logError))
+
+        .pipe(concat( 'style.scss' )) // combine SCSS files together
+        .pipe(gulp.dest( settings.dist ))
         .pipe(autoprefixer({ // auto-prefix for better browser support 
             browsers: ['last 2 versions'],
             cascade: false

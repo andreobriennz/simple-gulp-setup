@@ -11,5 +11,4 @@ You do not have to clone this project, you can just copy the essential files and
 7. Run 'gulp' in terminal, files should be creasted in assets/dist folder
 
 Issues:
-- Sometimes issues compiling JavaScript vendor files in node_files
-- Doesn't include SASS from all files in array 
+- Sometimes issues compiling JavaScript vendor files from node_files
