@@ -28,6 +28,15 @@ const files = {
         // 'assets/styles/**/*.scss',
         // 'assets/styles/*.scss',
     ],
+    vendor: { // optional array for vendor files (needs improvement)
+        scripts: [
+            './node_modules/jquery/dist/jquery.js',
+            './node_modules/bootstrap/dist/js/bootstrap.js',
+        ],
+        styles: [
+            './node_modules/bootstrap/dist/css/bootstrap.css',
+        ],
+    },
 }
 
 // JAVASCRIPT: concat together, compile es2015, minify
@@ -61,11 +70,39 @@ gulp.task('sass', function () {
 });
 
 
+// VENDOR (same as scripts and sass tasks, but with different files and destination)
+// javascript
+gulp.task('vendor-scripts', function() {
+    return gulp.src( files.vendor.scripts )
+        .pipe(concat('vendor.js'))
+        .pipe(babel())
+        .pipe(gulp.dest( settings.dest ))
+        .pipe(rename('vendor.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest( settings.dest ));
+});
+
+// css/sass
+gulp.task('vendor-sass', function () {
+    return gulp.src( files.vendor.styles )
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename( 'vendor.css' ))
+        .pipe(gulp.dest( settings.dest ))
+        .pipe(rename( 'vendor.min.css' ))
+        .pipe(minify({compatibility: 'ie8'}))
+        .pipe(gulp.dest( settings.dest ));
+});
+
+
 // WATCH FOR CHANGES
 gulp.task('watch', function() {
     gulp.watch( files.scripts, ['scripts']);
     gulp.watch( files.styles, ['sass']);
 });
 
-
 gulp.task('default', ['sass', 'scripts', 'watch']);
+gulp.task('vendor', ['vendor-sass', 'vendor-scripts']);
