@@ -15,20 +15,16 @@ const settings = {
 
 const files = {
     scripts: [ 
-        // array of js files
-        'assets/javascript/file1.js',
-        'assets/javascript/file2.js',
-        // or just: assets/javascript/*.js' for all in that folder
+        // array of js files (* = all files. ** = all folders.):
+        'assets/javascript/*.js',
+        'assets/javascript/**/*.js',
     ],
     styles: [ 
-        // array of sass files to compile, 
-        // you *might* need to list files in order rather than using * for alphabetical order
-        'assets/styles/file1.scss',
-        'assets/styles/file2.scss',
-        // 'assets/styles/**/*.scss',
-        // 'assets/styles/*.scss',
+        // array of sass files:
+        'assets/styles/**/*.scss',
+        'assets/styles/*.scss',
     ],
-    vendor: { // optional array for vendor files (needs improvement)
+    vendor: { // optional array for vendor files
         scripts: [
             './node_modules/jquery/dist/jquery.js',
             './node_modules/bootstrap/dist/js/bootstrap.js',
@@ -39,15 +35,15 @@ const files = {
     },
 }
 
-// JAVASCRIPT: concat together, compile es2015, minify
+// JavaScript: concat files together, compile es2015 to es5, minify
 gulp.task('scripts', function() {
-    return gulp.src( files.scripts ) // array of files
-        .pipe(concat( 'app.js' )) // concatinate files as app.js
-        .pipe(babel()) // compile to ES5 (older JS version)
-        .pipe(gulp.dest( settings.dest )) // create app.js in dist folder
-        .pipe(rename( 'app.min.js' )) // name of minified version 
-        .pipe(uglify()) // actually minify it
-        .pipe(gulp.dest( settings.dest )); // create app.min.js
+    return gulp.src( files.scripts ) // array of files to be combined into app.js
+        .pipe(concat( 'app.js' ))
+        .pipe(babel()) // compile to ES5
+        .pipe(gulp.dest( settings.dest ))
+        .pipe(rename( 'app.min.js' ))
+        .pipe(uglify()) // minify
+        .pipe(gulp.dest( settings.dest ));
 });
 
 
@@ -58,15 +54,15 @@ gulp.task('sass', function () {
 
         .pipe(concat( 'style.scss' )) // combine SCSS files together
         .pipe(gulp.dest( settings.dest ))
-        .pipe(autoprefixer({ // auto-prefix for better browser support 
+        .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
         }))
-        .pipe(rename('style.css')) // name of compiled file
-        .pipe(gulp.dest( settings.dest )) // create compiled file
-        .pipe(rename('style.min.css')) // name of minified file
-        .pipe(minify({compatibility: 'ie8'})) // minify file
-        .pipe(gulp.dest( settings.dest )); // create the minified file
+        .pipe(rename('style.css'))
+        .pipe(gulp.dest( settings.dest ))
+        .pipe(rename('style.min.css'))
+        .pipe(minify({compatibility: 'ie8'}))
+        .pipe(gulp.dest( settings.dest ));
 });
 
 
@@ -98,7 +94,6 @@ gulp.task('vendor-sass', function () {
 });
 
 
-// WATCH FOR CHANGES
 gulp.task('watch', function() {
     gulp.watch( files.scripts, ['scripts']);
     gulp.watch( files.styles, ['sass']);
