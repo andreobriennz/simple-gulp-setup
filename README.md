@@ -8,5 +8,12 @@ You do not have to clone this project, you can just copy the essential files and
 4. Install NPM and packages: npm install --save gulp gulp-concat gulp-uglify gulp-rename gulp-babel gulp-sass gulp-autoprefixer gulp-clean-css
 5. Run 'gulp' in terminal, files should be created in the assets/dist folder
 
-Issues:
-- Sometimes issues compiling JavaScript vendor files from node_files
+If you want to compile vendor files as a separate task, use the code from gulpfile.babel.extended.js
+
+**Change log**
+- 1.0.0-alpha.2: 
+    - Breaking changes: files moved out of settings object and into files object. 
+    - Since this is 'simple-gulp-setup', the setup to compile vendor files as a separate task is moved out of the default gulpfile.babel.js and into gulpfile.babel.extended.js, as explained above
+
+**Issues**
+- Sometimes issues compiling JavaScript vendor files from node_files when using vendor files via gulpfile.babel.extended.js
