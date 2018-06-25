@@ -5,7 +5,7 @@ You do not have to clone this project, you can just copy the essential files and
 1. Copy gulpfile.babel.js and .babelrc to the project/theme directory
 2. Set up NPM by typing 'npm init' in the terminal and following the setup instructions (default settings are fine)
 3. Install NPM and packages: npm install --save-dev gulp gulp-concat gulp-uglify gulp-rename gulp-babel gulp-sass gulp-autoprefixer gulp-clean-css
-4. In gulpfile.babel.js, make settings.scripts equal an array of JS files and settings.styles equal an array of SASS/SCSS files to be compiled
+4. In gulpfile.babel.js, if necessary, change files.scripts to equal an array of your JS files and change files.styles equal an array of your SASS/SCSS files
 5. Run 'gulp' in terminal, files should be created in the assets/dist folder
 
 If you want to compile vendor files as a separate task, use the code from gulpfile.babel.extended.js
