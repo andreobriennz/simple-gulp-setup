@@ -1,4 +1,4 @@
-# MAC OS
+### MAC OS ###
 # General
 .DS_Store
 .AppleDouble
@@ -28,7 +28,7 @@ Temporary Items
 .apdisk
 
 
-# WINDOWS
+#### WINDOWS ###
 # Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
@@ -54,7 +54,7 @@ $RECYCLE.BIN/
 *.lnk
 
 
-# LARAVEL
+### LARAVEL ###
 /node_modules
 /public/hot
 /public/storage
@@ -70,7 +70,7 @@ yarn-error.log
 .env
 
 
-# WORDPRESS
+### WORDPRESS ###
 *.log
 wp-config.php
 wp-content/advanced-cache.php
@@ -89,3 +89,16 @@ wp-content/plugins/hello.php
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
+
+
+### PYTHON ###
+
+# Byte-compiled / optimized / DLL files
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+ENV/
