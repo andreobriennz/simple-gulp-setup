@@ -54,6 +54,16 @@ $RECYCLE.BIN/
 *.lnk
 
 
+### VS CODE ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+out/
+
+
 ### LARAVEL ###
 /node_modules
 /public/hot
