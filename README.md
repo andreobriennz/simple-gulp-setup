@@ -10,6 +10,8 @@ You do not have to clone this project, you can just copy the essential files and
 
 If you want to compile vendor files as a separate task, use the code from gulpfile.babel.extended.js
 
+**Note:** Version 2 is currently under development and will provide wrapper functions and a simple CLI to simplify setup
+
 **Change log**
 - 1.0.0-alpha.2: 
     - Breaking changes: files moved out of settings object and into files object. 
