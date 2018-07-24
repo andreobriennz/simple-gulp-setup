@@ -1,17 +1,17 @@
 const gulp = require('gulp');
-
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const babel = require('gulp-babel');
-
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
 
+
 const settings = {
     dest: 'assets/dist', // destination of compiled files
 }
+
 
 const files = {
     scripts: [ 
@@ -25,6 +25,7 @@ const files = {
         'assets/styles/*.scss',
     ],
 }
+
 
 // JavaScript: concat files together, compile es2015 to es5, minify
 gulp.task('scripts', function() {
@@ -58,8 +59,8 @@ gulp.task('sass', function () {
 
 
 gulp.task('watch', function() {
-    gulp.watch( files.scripts, ['scripts']);
-    gulp.watch( files.styles, ['sass']);
+    gulp.watch( wrapper.scripts, ['scripts']);
+    gulp.watch( wrapper.styles, ['sass']);
 });
 
 
