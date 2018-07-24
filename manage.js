@@ -2,49 +2,121 @@
 const fs = require('fs')
 
 
-// SETUP
 class Setup {
-    constructor() {
-
+    constructor(dest, settings) {
+        this.dest = dest
+        this.settings = settings
     }
 
-    create_with_comments() {
+    
+    init() {
+        const filename = 'src/gulp_templates/gulpfile.wrappers.js'
 
-    }
+        const _self = this
+        let data_promise = new Promise(function(resolve, reject) {
+            _self.load_file(filename)
+        });
 
-    create_without_comments() {
+        Promise.all([data_promise]).then(
+            ((res) => {
+                console.log('pass')
+            }, (err) => {
+                console.log('fail')
+            })
+        )
 
-    }
-}
 
 
-// UPDATES
-class Update {
-    constructor() {
+
+        // console.log(data.ready().then(function() {
+        //         console.log('loaded')
+        //     })
+          
         
+        
+        // );
+        
+        return
+
+        data = this.remove_comments(data)
+
+        this.create_gulp_file(data)
     }
 
-    copy(input, output) {
-        fs.createReadStream(input).pipe(fs.createWriteStream(output))
+
+    load_file(filename) {
+        fs.readFile(filename, 'utf8', function(err, data) {
+            if (err) throw err; 
+            console.log('OK: ' + filename);
+            
+            return data
+        })
+
     }
 
-    run_updates() {
-        // add error checking
-        this.copy('src/.babelrc', 'dist/.babelrc')
-        this.copy('src/gulpfile.babel.js', 'dist/gulpfile.babel.js')
-        this.copy('src/wrappers/wrappers.js', 'dist/wrappers/wrappers.js')
-        console.log('Updated into dist/')
+
+    remove_comments(data) {
+        if (!this.settings.includes('comments')) {
+            console.log('remove comments')
+        }
+        return data
+    }
+
+
+    create_gulp_file (data) {
+        fs.writeFile(this.dest+'/gulpfile.babel.js', data, function (err) {
+            if (err) throw err;
+        }); 
     }
 }
-const update = new Update()
 
 
-const run_updates = () => {
-    update.run_updates()
+
+
+const init = (dest, settings = 'none|wrappers') => {
+    const setup = new Setup(dest, settings)
+
+    setup.init()
 }
-run_updates()
 
 
-module.exports.run_updates = function() {
-    console.log('(update imported)')
+
+
+// CLI
+switch (process.argv[2]) { // first arg from terminal
+    case 'init':
+    case 'create':
+        init(process.argv[3], process.argv[4]) // variations (eg comments or standard (no wrappers))
+        break
+    default:
+        console.log('To init a new Gulp setup: "node manage.js create <folder>"')
+        break
 }
+
+
+
+
+
+
+
+
+
+// // UPDATES
+// class Update {
+//     constructor() {
+        
+//     }
+
+//     copy(input, output) {
+//         fs.createReadStream(input).pipe(fs.createWriteStream(output))
+//     }
+
+//     run_updates() {
+//         // add error checking
+//         this.copy('src/.babelrc', 'dist/.babelrc')
+//         this.copy('src/gulp_templates/gulpfile.wrappers.js', 'dist/gulpfile.babel.js')
+//         this.copy('src/wrappers/Compile.js', 'dist/wrappers/wrappers.js')
+//         console.log('Updated into dist/')
+//     }
+// }
+// const update = new Update()
