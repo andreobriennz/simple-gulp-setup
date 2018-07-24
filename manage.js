@@ -24,17 +24,6 @@ class Setup {
                 console.log('fail')
             })
         )
-
-
-
-
-        // console.log(data.ready().then(function() {
-        //         console.log('loaded')
-        //     })
-          
-        
-        
-        // );
         
         return
 
@@ -71,15 +60,11 @@ class Setup {
 }
 
 
-
-
 const init = (dest, settings = 'none|wrappers') => {
     const setup = new Setup(dest, settings)
 
     setup.init()
 }
-
-
 
 
 // CLI
@@ -92,31 +77,3 @@ switch (process.argv[2]) { // first arg from terminal
         console.log('To init a new Gulp setup: "node manage.js create <folder>"')
         break
 }
-
-
-
-
-
-
-
-
-
-// // UPDATES
-// class Update {
-//     constructor() {
-        
-//     }
-
-//     copy(input, output) {
-//         fs.createReadStream(input).pipe(fs.createWriteStream(output))
-//     }
-
-//     run_updates() {
-//         // add error checking
-//         this.copy('src/.babelrc', 'dist/.babelrc')
-//         this.copy('src/gulp_templates/gulpfile.wrappers.js', 'dist/gulpfile.babel.js')
-//         this.copy('src/wrappers/Compile.js', 'dist/wrappers/wrappers.js')
-//         console.log('Updated into dist/')
-//     }
-// }
-// const update = new Update()
