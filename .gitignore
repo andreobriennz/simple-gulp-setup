@@ -133,3 +133,5 @@ __pycache__/
 .venv/
 venv/
 ENV/
+
+trash/
