@@ -39,3 +39,8 @@ patch:
         patched: '2019-07-04T01:28:46.827Z'
     - gulp-sass > node-sass > gaze > globule > lodash:
         patched: '2019-07-04T01:28:46.827Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T01:33:46.001Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T01:33:46.001Z'
